@@ -20,7 +20,9 @@ function Homepage() {
     const [roomID, setRoomID] = useState<string | null>(null)
     const [currentUserID, setCurrentUserID] = useState<string | null>(null);
     const [members, setMembers] = useState<UserType[]>([])
-    const API_URL = "http://localhost:8080/api";
+    const API_URL = process.env.NEXT_PUBLIC_API_URL
+        ? `${process.env.NEXT_PUBLIC_API_URL}/api`
+        : "http://localhost:8080/api";
 
     useEffect(() => {
         const fetchUsers = async () => {
