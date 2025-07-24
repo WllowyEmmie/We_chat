@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+
 	// "os"
 	"sync"
 	"time"
@@ -25,9 +26,9 @@ var (
 )
 
 type WSMessage struct {
-	Type string `json:"type"` // "join" | "message"
-	Room string `json:"room"`
-	User string `json:"user"`
+	Type    string `json:"type"` // "join" | "message"
+	Room    string `json:"room"`
+	User    string `json:"user"`
 	Content string `json:"content"`
 }
 
@@ -57,10 +58,14 @@ var upgrader = websocket.Upgrader{
 func Handler(w http.ResponseWriter, r *http.Request) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
-		log.Println(err)
+		log.Println("[WebSocket] Upgrade error:", err)
 		return
 	}
-	defer conn.Close()
+	log.Println("[WebSocket] Connection upgraded")
+	defer func() {
+		conn.Close()
+		log.Println("[WebSocket] Connection closed")
+	}()
 	var currentRoomID uuid.UUID
 	var currentUserID uuid.UUID
 	conn.SetPongHandler(func(appData string) error {
