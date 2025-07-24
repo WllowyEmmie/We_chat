@@ -13,7 +13,9 @@ function ChatRoomPage() {
   const params = useParams();
   const roomID = params.roomID as string;
   const [userID, setUserID] = useState<string | null>(null)
-  const API_URL = "http://localhost:8080/api";
+  const API_URL = process.env.NEXT_PUBLIC_API_URL
+    ? `${process.env.NEXT_PUBLIC_API_URL}/api`
+    : "http://localhost:8080/api";
   const [members, setMembers] = useState<UserType[]>([])
   const [error, setError] = useState<string | null>(null);
 

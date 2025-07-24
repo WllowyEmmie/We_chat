@@ -11,7 +11,9 @@ interface UserType {
 }
 //testing
 function Homepage() {
-    const route = "http://localhost:8080/api/users";
+    const route = process.env.NEXT_PUBLIC_API_URL
+        ? `${process.env.NEXT_PUBLIC_API_URL}/api/users`
+        : "http://localhost:8080/api/users";
     const [users, setUsers] = useState<UserType[]>([]);
     const router = useRouter();
     const [error, setError] = useState<string | null>(null);
