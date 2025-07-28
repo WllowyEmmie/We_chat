@@ -82,7 +82,7 @@ function Homepage() {
 
     return (
         <div className="size-full bg-slate-100 min-w-screen min-h-screen flex justify-center">
-            <div className="h-full bg-slate-100 px-4 pt-6 m-4 bg-grey-100 rounded-lg shadow-sm">
+            <div className="h-full w-full max-w-[60rem] bg-slate-100 px-4 pt-6 m-4 bg-grey-100 rounded-lg shadow-sm flex-col items-center">
                 {users.map(user => (
                     <UserCard
                         key={user.id}
